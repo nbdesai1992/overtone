@@ -1,7 +1,7 @@
 # Feature: Voice-to-Terminal
 
 ## Metadata
-- **Status**: `testing`
+- **Status**: `complete`
 - **Created**: 2025-01-16
 - **Last Updated**: 2025-01-16
 - **Priority**: `high`
@@ -71,6 +71,8 @@ Simple Python app using:
 ---
 
 ## Current State
+
+**Archived 2026-09-25**: in daily use since January. Hotkeys later moved to Right Option / Right Command (see `active/hotkey-and-reliability-fixes.md`); typing moved to clipboard paste.
 
 **What's done**:
 - Full working Mac app

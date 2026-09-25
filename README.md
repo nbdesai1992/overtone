@@ -23,18 +23,18 @@ python voice_terminal.py
 
 ## How It Works
 
-**Mode 1 - Transcribe (Cmd+Shift+Z)**
-1. Hold **Cmd+Shift+Z** and speak
-2. Release the hotkey
+**Mode 1 - Transcribe (Right Option)**
+1. Hold **Right Option** (⌥) and speak
+2. Release the key
 3. Your words appear in the focused window
 
-**Mode 2 - Ask Claude (Cmd+Shift+A)**
+**Mode 2 - Ask Claude (Right Command)**
 1. Copy some text/code to clipboard
-2. Hold **Cmd+Shift+A** and speak your question
-3. Release the hotkey
+2. Hold **Right Command** (⌘) and speak your question
+3. Release the key
 4. Claude's response appears in the focused window
 
-The app runs in your menubar and works with any application.
+The app runs in your menubar and works with any application. Your clipboard is restored after each paste.
 
 <!--
 SCREENSHOT: Show the menubar with the 🎤 icon visible
@@ -68,7 +68,7 @@ cat > .env << 'EOF'
 # Required: OpenAI API key for Whisper transcription
 OPENAI_API_KEY=sk-your-key-here
 
-# Optional: LLM API for Claude mode (Cmd+Shift+A)
+# Optional: LLM API for Claude mode (Right Command)
 LLM_API_KEY=your-llm-api-key
 LLM_BASE_URL=https://your-llm-endpoint.com/v1
 LLM_MODEL=claude-opus-4-5-20250514
@@ -77,6 +77,7 @@ EOF
 
 - **OPENAI_API_KEY**: Required for speech-to-text (Whisper)
 - **LLM_*** variables: Optional, enables Claude mode for AI responses
+- **SILENCE_THRESHOLD**: Optional (default `0.005`). Recordings quieter than this are skipped as silence. Lower it if quiet speech gets ignored
 
 ### 4. Grant Permissions
 
@@ -104,10 +105,12 @@ The 🎤 icon appears in your menubar. You're ready to go.
 
 ## Usage
 
-| Hotkey | Action |
-|--------|--------|
-| **Cmd+Shift+Z** | Transcribe speech → paste text |
-| **Cmd+Shift+A** | Transcribe speech → send to Claude with clipboard context → paste response |
+| Hotkey (hold) | Action |
+|---------------|--------|
+| **Right Option** | Transcribe speech → paste text |
+| **Right Command** | Transcribe speech → send to Claude with clipboard context → paste response |
+
+The hotkeys are modifier keys, so they never trigger app shortcuts. Quick taps and shortcuts that use them (like Option+← or Cmd+C) are ignored: pressing any other key while holding the hotkey cancels the recording.
 
 | Menubar Icon | Status |
 |--------------|--------|
@@ -125,10 +128,12 @@ Filename suggestion: screenshots/status-icons.gif
 **Audio feedback:**
 - "Tink" sound when recording starts
 - "Pop" sound when recording stops
+- "Funk" sound if you hold the hotkey while the previous recording is still processing (wait for 🎤, then try again)
 
 ## Tips
 
 - **Focus first**: Click on the target window before pressing the hotkey
+- **Wait for the "Tink"**: Recording starts a moment after you press the key
 - **Speak naturally**: Normal pace, clear pronunciation
 - **Short phrases work best**: Whisper handles long dictation but shorter is snappier
 - **Works everywhere**: Terminal, VS Code, Slack, browser text fields, etc.
@@ -144,6 +149,11 @@ A typical 5-second command costs about $0.0005 (fraction of a cent).
 ### "API Key Missing" alert
 - Make sure `.env` exists and contains your key
 - Restart the app after creating/editing `.env`
+
+### Hotkey does nothing
+- Use the **right-hand** Option/Command keys; the left ones are left alone for normal shortcuts
+- Check Accessibility permission in System Settings (it's needed to see key presses)
+- Make sure you're not pressing other keys while holding the hotkey
 
 ### Text not appearing
 - Check Accessibility permission in System Settings
