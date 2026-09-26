@@ -134,6 +134,11 @@ HOLD_DELAY = 0.15  # Seconds to hold before recording starts, so quick taps do n
 MIN_RECORDING_SECONDS = 0.3  # Shorter clips are accidental taps (Whisper rejects them anyway)
 SILENCE_THRESHOLD = float(os.environ.get("SILENCE_THRESHOLD", "0.005"))  # RMS; lower = more sensitive
 CLIPBOARD_RESTORE_DELAY = 0.5  # Seconds to wait after pasting before restoring the clipboard
+TRANSCRIBE_MODEL = os.environ.get("TRANSCRIBE_MODEL", "whisper-1")
+# Optional value for the API's `user` field on every request. Some proxies (e.g. LiteLLM)
+# use it for project attribution.
+API_USER = os.environ.get("API_USER")
+API_EXTRA_BODY = {"user": API_USER} if API_USER else None
 SAMPLE_RATE = 16000  # Whisper expects 16kHz
 CHANNELS = 1
 
@@ -154,15 +159,15 @@ class VoiceTerminalApp(rumps.App):
         self.current_mode = None  # 'transcribe' or 'claude'
         self.clipboard_context = None  # Stored clipboard for claude mode
 
-        # OpenAI client (for Whisper)
-        api_key = os.environ.get("OPENAI_API_KEY")
+        # Transcription client (Whisper). Any OpenAI-compatible endpoint; defaults to OpenAI.
+        api_key = os.environ.get("TRANSCRIBE_API_KEY") or os.environ.get("OPENAI_API_KEY")
         if not api_key:
             rumps.alert(
                 title="API Key Missing",
-                message="Please set OPENAI_API_KEY environment variable.\n\n"
-                        "export OPENAI_API_KEY='your-key-here'"
+                message="Please set OPENAI_API_KEY (or TRANSCRIBE_API_KEY) in .env."
             )
-        self.whisper_client = OpenAI(api_key=api_key) if api_key else None
+        transcribe_base_url = os.environ.get("TRANSCRIBE_BASE_URL")  # None = OpenAI
+        self.whisper_client = OpenAI(api_key=api_key, base_url=transcribe_base_url) if api_key else None
 
         # LLM client (for Claude mode)
         llm_api_key = os.environ.get("LLM_API_KEY")
@@ -379,13 +384,14 @@ class VoiceTerminalApp(rumps.App):
             try:
                 # Transcribe with Whisper
                 with open(tmp_path, "rb") as audio_file:
+                    # JSON (the default) rather than "text": some proxies return JSON either way
                     transcript = self.whisper_client.audio.transcriptions.create(
-                        model="whisper-1",
+                        model=TRANSCRIBE_MODEL,
                         file=audio_file,
-                        response_format="text"
+                        extra_body=API_EXTRA_BODY
                     )
 
-                text = transcript.strip()
+                text = transcript.text.strip()
 
                 if text:
                     if mode == 'transcribe':
@@ -423,6 +429,7 @@ class VoiceTerminalApp(rumps.App):
         response = self.llm_client.chat.completions.create(
             model=self.llm_model,
             max_tokens=4096,
+            extra_body=API_EXTRA_BODY,
             messages=[
                 {
                     "role": "system",

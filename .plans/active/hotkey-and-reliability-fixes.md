@@ -57,6 +57,20 @@ pynput quirks handled:
 ## Progress Log
 <!-- Append new entries at the top. This is the session continuity record. -->
 
+### 2026-09-25 (later)
+**Session**: Debugging "no text appears"
+**Done**:
+- Root cause: OpenAI account out of credits (429). The error notification never showed (notifications don't appear for this Python), so it looked silent
+- Made transcription endpoint configurable, generically: `TRANSCRIBE_API_KEY` / `TRANSCRIBE_BASE_URL` / `TRANSCRIBE_MODEL`, plus `API_USER` (sent as `user` on every request, for proxy attribution)
+- Scale setup lives only in the gitignored `.env`: LiteLLM proxy from toolbox, `groq/whisper-large-v3-turbo` (0.4s vs 1.5s for whisper-1)
+- Findings: the LiteLLM proxy ignores the `x-litellm-project-id` header on audio uploads, but accepts `user=<project id>`; it returns JSON even for `response_format="text"`, so we read `.text` from the default JSON response
+- Verified end to end: real app code transcribes a `say`-generated clip through the proxy
+
+**Issues**:
+- Notifications don't show, so errors are invisible. Proposed: error sound + ⚠️ icon + log file
+
+---
+
 ### 2026-09-25
 **Session**: Scoping + implementation
 **Done**:
@@ -83,13 +97,14 @@ pynput quirks handled:
 - Real-world testing by the user
 
 **What's NOT working**:
-- Nothing known. Watch for: silence threshold too aggressive on quiet mics (lower `SILENCE_THRESHOLD`), clipboard restore racing slow apps (raise `CLIPBOARD_RESTORE_DELAY`)
+- Error notifications don't appear, so failures look silent (see Next Steps). Watch for: silence threshold too aggressive on quiet mics (lower `SILENCE_THRESHOLD`), clipboard restore racing slow apps (raise `CLIPBOARD_RESTORE_DELAY`)
 
 ## Next Steps
 <!-- Ordered by priority. Check off as you complete. -->
 1. [ ] Use it for a few days; confirm Right Option/Command feel right and nothing fires by accident
-2. [ ] Tune `SILENCE_THRESHOLD` / `CLIPBOARD_RESTORE_DELAY` if needed
-3. [ ] Move this plan to `archive/`
+2. [ ] Make errors visible: Basso sound + ⚠️ icon + `~/Library/Logs/voice-terminal.log`
+3. [ ] Tune `SILENCE_THRESHOLD` / `CLIPBOARD_RESTORE_DELAY` if needed
+4. [ ] Move this plan to `archive/`
 
 ## Future (out of scope here)
 - Fn/Globe hold-to-talk via a Quartz event tap

@@ -77,6 +77,8 @@ EOF
 
 - **OPENAI_API_KEY**: Required for speech-to-text (Whisper)
 - **LLM_*** variables: Optional, enables Claude mode for AI responses
+- **TRANSCRIBE_API_KEY / TRANSCRIBE_BASE_URL / TRANSCRIBE_MODEL**: Optional. Send transcription to any OpenAI-compatible endpoint (e.g. a LiteLLM proxy) instead of OpenAI. Defaults: `OPENAI_API_KEY`, OpenAI, `whisper-1`
+- **API_USER**: Optional. Sent as the `user` field on every API request (some proxies use it for project attribution)
 - **SILENCE_THRESHOLD**: Optional (default `0.005`). Recordings quieter than this are skipped as silence. Lower it if quiet speech gets ignored
 
 ### 4. Grant Permissions
