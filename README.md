@@ -1,6 +1,8 @@
-# Voice Terminal
+# Overtone
 
-A macOS menubar app that lets you dictate text into any application. Hold a hotkey, speak, release - your words appear instantly.
+**Voice for Claude Code.** A macOS menubar app that lets you dictate text into any application. Hold a hotkey, speak, release - your words appear instantly.
+
+Claude Code now has a built-in `/voice`. Overtone works in whichever window has focus, so one key serves every Claude Code session and terminal you have open, and a second key sends your clipboard plus a spoken question to Claude and pastes the answer.
 
 Perfect for terminals, VS Code, Slack, or anywhere you want voice input.
 
@@ -8,8 +10,8 @@ Perfect for terminals, VS Code, Slack, or anywhere you want voice input.
 
 ```bash
 # Clone and setup
-git clone https://github.com/nbdesai1992/voice-terminal.git
-cd voice-terminal
+git clone https://github.com/nbdesai1992/overtone.git
+cd overtone
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
@@ -52,8 +54,8 @@ Filename suggestion: screenshots/menubar-ready.png
 ### 2. Install
 
 ```bash
-git clone https://github.com/nbdesai1992/voice-terminal.git
-cd voice-terminal
+git clone https://github.com/nbdesai1992/overtone.git
+cd overtone
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
@@ -175,7 +177,7 @@ A typical 5-second command costs about $0.0005 (fraction of a cent).
 Just delete the folder. The app doesn't install anything system-wide.
 
 ```bash
-rm -rf voice-terminal
+rm -rf overtone
 ```
 
 Optionally revoke permissions in System Settings > Privacy & Security.

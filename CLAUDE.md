@@ -1,4 +1,4 @@
-# Voice Terminal
+# Overtone
 
 A voice-to-text tool for terminal/Claude Code. Speak commands, have them typed into the focused terminal window.
 

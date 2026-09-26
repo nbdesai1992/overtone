@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Voice Terminal - A macOS menubar app for voice-to-text in any application.
+Overtone - A macOS menubar app for voice-to-text in any application.
 
 Mode 1: Hold Right Option to transcribe speech directly.
 Mode 2: Hold Right Command to send clipboard + speech to Claude, paste response.
@@ -40,7 +40,7 @@ def on_main_thread(func, *args, **kwargs):
 
 def notify(subtitle, message):
     """Show a notification. Safe to call from any thread."""
-    on_main_thread(rumps.notification, title="Voice Terminal", subtitle=subtitle, message=message)
+    on_main_thread(rumps.notification, title="Overtone", subtitle=subtitle, message=message)
 
 
 def get_clipboard():
@@ -145,7 +145,7 @@ CHANNELS = 1
 
 class VoiceTerminalApp(rumps.App):
     def __init__(self):
-        super().__init__("Voice Terminal", icon=None, title="🎤")
+        super().__init__("Overtone", icon=None, title="🎤")
 
         # State, shared by the key listener, hold timer, and worker threads.
         # Guarded by self.lock.
