@@ -8,7 +8,7 @@
 
 ## Problem Statement
 
-Currently, Voice Terminal types text into whatever window has focus at the moment the transcription completes. This creates two limitations:
+Currently, Overtone types text into whatever window has focus at the moment the transcription completes. This creates two limitations:
 
 1. **Focus lock**: User must keep focus on target window while text types character-by-character
 2. **No chaining**: Cannot dictate to Window A, switch to Window B, dictate again - the second transcription would go to B, but so would any remaining typing from the first

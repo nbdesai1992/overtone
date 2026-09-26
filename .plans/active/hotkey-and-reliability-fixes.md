@@ -51,7 +51,7 @@ pynput quirks handled:
 ### Files to Modify/Create
 | File | Action | Description |
 |------|--------|-------------|
-| `voice_terminal.py` | modify | Hotkeys, state machine, clipboard restore, silence skip, main-thread UI |
+| `overtone.py` | modify | Hotkeys, state machine, clipboard restore, silence skip, main-thread UI |
 | `README.md` | modify | New hotkeys, Funk sound, SILENCE_THRESHOLD, troubleshooting |
 
 ## Progress Log
@@ -115,7 +115,7 @@ pynput quirks handled:
 ## Testing Notes
 **Local testing**:
 ```bash
-source venv/bin/activate && python voice_terminal.py
+source venv/bin/activate && python overtone.py
 # Transcribe: focus a text field, hold Right Option, wait for Tink, speak, release
 # Tap Right Option quickly: nothing should happen
 # Option+Left (right Option) in an editor: cursor jumps a word, no recording

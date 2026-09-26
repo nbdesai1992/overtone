@@ -20,7 +20,7 @@ pip install -r requirements.txt
 echo "OPENAI_API_KEY=sk-your-key-here" > .env
 
 # Run
-python voice_terminal.py
+python overtone.py
 ```
 
 ## How It Works
@@ -102,7 +102,7 @@ Filename suggestion: screenshots/accessibility-permission.png
 ### 5. Run
 
 ```bash
-python voice_terminal.py
+python overtone.py
 ```
 
 The 🎤 icon appears in your menubar. You're ready to go.

@@ -143,7 +143,7 @@ SAMPLE_RATE = 16000  # Whisper expects 16kHz
 CHANNELS = 1
 
 
-class VoiceTerminalApp(rumps.App):
+class OvertoneApp(rumps.App):
     def __init__(self):
         super().__init__("Overtone", icon=None, title="🎤")
 
@@ -456,4 +456,4 @@ class VoiceTerminalApp(rumps.App):
 
 
 if __name__ == "__main__":
-    VoiceTerminalApp().run()
+    OvertoneApp().run()

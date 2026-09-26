@@ -7,7 +7,7 @@
 - **Priority**: `high`
 
 ## Overview
-Add a second hotkey that sends clipboard context + spoken prompt to Claude Opus 4.5 and pastes the response. This transforms Voice Terminal from a transcription tool into a voice-activated AI assistant that can see what you've copied.
+Add a second hotkey that sends clipboard context + spoken prompt to Claude Opus 4.5 and pastes the response. This transforms Overtone from a transcription tool into a voice-activated AI assistant that can see what you've copied.
 
 **Use case**: Copy some code → press hotkey → say "explain this" or "refactor to use async" → Claude's response appears in your focused window.
 
@@ -125,7 +125,7 @@ Consider: Should we strip markdown formatting? Or keep it? Probably keep it - us
 ### Files to Modify/Create
 | File | Action | Description |
 |------|--------|-------------|
-| `voice_terminal.py` | modify | Add second hotkey, Claude API integration, mode tracking |
+| `overtone.py` | modify | Add second hotkey, Claude API integration, mode tracking |
 | `.env.example` | create | Document required environment variables |
 | `requirements.txt` | modify | Add `anthropic` package |
 | `README.md` | modify | Document new hotkey and setup |
@@ -207,7 +207,7 @@ echo "ANTHROPIC_API_KEY=sk-ant-..." >> .env
 pip install anthropic
 
 # 3. Run app
-python voice_terminal.py
+python overtone.py
 
 # 4. Test Mode 1 (should work as before)
 # - Focus a text field, Cmd+Shift+Z, speak, release
