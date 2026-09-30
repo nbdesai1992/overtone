@@ -199,7 +199,7 @@ class OvertoneApp(rumps.App):
     # Key handling. These run on the listener thread: keep them fast, and never
     # let an exception escape, because that stops the listener for good.
 
-    def on_key_press(self, key, injected):
+    def on_key_press(self, key, injected=False):
         """Handle key press events."""
         if injected:
             return  # Synthetic events, like our own Cmd+V
@@ -225,7 +225,7 @@ class OvertoneApp(rumps.App):
         except Exception as e:
             notify("Error", str(e)[:100])
 
-    def on_key_release(self, key, injected):
+    def on_key_release(self, key, injected=False):
         """Handle key release events."""
         if injected:
             return
